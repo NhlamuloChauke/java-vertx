@@ -5,7 +5,7 @@ import io.vertx.ext.web.client.WebClient;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,11 +13,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(VertxExtension.class)
 public class MainVerticleTest {
 
-    private WebClient webClient;
+    private static WebClient webClient;
     private static final int CONFIG_PORT = 8080;
 
-    @BeforeEach
-    void deployVerticle(Vertx vertx, VertxTestContext testContext) {
+    @BeforeAll
+    static void deployVerticle(Vertx vertx, VertxTestContext testContext) {
         webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle())
                 .onSuccess(id -> testContext.completeNow())
